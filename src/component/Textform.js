@@ -24,9 +24,9 @@ export default function Textform(props) {
     // console.log("clear");
   };
   const handleCopy = () => {
-    let text = document.getElementById("textbox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
+    // let text = document.getElementById("textbox");
+    // text.select();
+    navigator.clipboard.writeText(text);
     props.showAlert("Copied to ClipBoard!", "success");
   };
 
@@ -40,8 +40,9 @@ export default function Textform(props) {
   return (
     <>
       <div
-        className={`container text-${props.mode === "light" ? "dark" : "light"
-          }`}
+        className={`container text-${
+          props.mode === "light" ? "dark" : "light"
+        }`}
       >
         <h2>{props.heading}</h2>
         <div className="mb-3 my-2">
@@ -58,9 +59,19 @@ export default function Textform(props) {
           ></textarea>
         </div>
         <button
-          className="btn btn-primary mx-1"
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
           style={{
-            backgroundColor: props.mode === "dark" ? "#212529" : "#FF8C00",
+            backgroundColor:
+              props.mode === "warning"
+                ? "#271500"
+                : props.mode === "danger"
+                ? "#000000"
+                : props.mode === "primary"
+                ? "#000000"
+                : props.mode === "dark"
+                ? "#212529"
+                : "#FF8C00",
             borderColor: props.mode === "dark" ? "#59677a" : "white",
           }}
           onClick={handleUpClick}
@@ -68,9 +79,19 @@ export default function Textform(props) {
           Convert to Uppercase
         </button>
         <button
-          className="btn btn-primary mx-1"
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
           style={{
-            backgroundColor: props.mode === "dark" ? "#212529" : "#FF8C00",
+            backgroundColor:
+              props.mode === "warning"
+                ? "#271500"
+                : props.mode === "danger"
+                ? "#000000"
+                : props.mode === "primary"
+                ? "#000000"
+                : props.mode === "dark"
+                ? "#212529"
+                : "#FF8C00",
             borderColor: props.mode === "dark" ? "#59677a" : "white",
           }}
           onClick={handleLoClick}
@@ -78,9 +99,19 @@ export default function Textform(props) {
           Convert to Lowercase
         </button>
         <button
-          className="btn btn-primary mx-1"
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
           style={{
-            backgroundColor: props.mode === "dark" ? "#212529" : "#FF8C00",
+            backgroundColor:
+              props.mode === "warning"
+                ? "#271500"
+                : props.mode === "danger"
+                ? "#000000"
+                : props.mode === "primary"
+                ? "#000000"
+                : props.mode === "dark"
+                ? "#212529"
+                : "#FF8C00",
             borderColor: props.mode === "dark" ? "#59677a" : "white",
           }}
           onClick={handleClearClick}
@@ -88,9 +119,19 @@ export default function Textform(props) {
           Clear Text
         </button>
         <button
-          className="btn btn-primary mx-1"
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
           style={{
-            backgroundColor: props.mode === "dark" ? "#212529" : "#FF8C00",
+            backgroundColor:
+              props.mode === "warning"
+                ? "#271500"
+                : props.mode === "danger"
+                ? "#000000"
+                : props.mode === "primary"
+                ? "#000000"
+                : props.mode === "dark"
+                ? "#212529"
+                : "#FF8C00",
             borderColor: props.mode === "dark" ? "#59677a" : "white",
           }}
           onClick={handleCopy}
@@ -98,9 +139,19 @@ export default function Textform(props) {
           Copy Text
         </button>
         <button
-          className="btn btn-primary mx-1"
+          disabled={text.length === 0}
+          className="btn btn-primary mx-1 my-1"
           style={{
-            backgroundColor: props.mode === "dark" ? "#212529" : "#FF8C00",
+            backgroundColor:
+              props.mode === "warning"
+                ? "#271500"
+                : props.mode === "danger"
+                ? "#000000"
+                : props.mode === "primary"
+                ? "#000000"
+                : props.mode === "dark"
+                ? "#212529"
+                : "#FF8C00",
             borderColor: props.mode === "dark" ? "#59677a" : "white",
           }}
           onClick={handleExtraSpace}
@@ -109,26 +160,42 @@ export default function Textform(props) {
         </button>
       </div>
       <div
-        className={`container my-3 text-${props.mode === "light" ? "dark" : "light"
-          }`}
+        className={`container my-3 text-${
+          props.mode === "light" ? "dark" : "light"
+        }`}
       >
         <h2>Text Summary</h2>
         <p>
-          {text.split(" ").length} Words and {text.length} Character
+          {
+            text.split(/\s+/).filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          Words and {text.length} Character
         </p>
         <p>{text.split(".").length - 1} Sentence </p>
         <p>
-          {(60 * (text.split(" ").length / 275)).toFixed(2)} sec reading time.
+          {(
+            60 *
+            (text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length /
+              275)
+          ).toFixed(2)}{" "}
+          sec reading time.
         </p>
         <p>
-          {(60 * (text.split(" ").length / 180)).toFixed(2)} sec specking time.
+          {(
+            60 *
+            (text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length /
+              180)
+          ).toFixed(2)}{" "}
+          sec specking time.
         </p>
         <h2>Preview</h2>
-        <p>
-          {text.length > 0
-            ? text
-            : "Enter something in the textbox above to preview it here"}
-        </p>
+        <p>{text.length > 0 ? text : "nothing to preview!"}</p>
       </div>
     </>
   );
